@@ -48,7 +48,11 @@ function mapMethodToApi(method: PayoutMethod): string {
   }
 }
 
-export function WalletView({ onNavigate }: { onNavigate?: (tab: string) => void }) {
+interface ViewProps {
+  onNavigate?: (tab: "home" | "tasks" | "ads" | "invite" | "wallet" | string) => void;
+}
+
+export function WalletView({ onNavigate }: ViewProps) {
   const { user, withdrawals, requestWithdrawal } = useApp();
   const [selectedMethod, setSelectedMethod] = useState<PayoutMethod>("bKash");
   const [amount, setAmount] = useState("");

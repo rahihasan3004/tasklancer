@@ -22,11 +22,13 @@ function haptic() {
   (window as any).Telegram?.WebApp?.HapticFeedback?.impactOccurred("light");
 }
 
+interface ViewProps {
+  onNavigate?: (tab: "home" | "tasks" | "ads" | "invite" | "wallet" | string) => void;
+}
+
 export function HomeView({
   onNavigate,
-}: {
-  onNavigate?: (tab: "home" | "tasks" | "ads" | "invite" | "wallet") => void;
-}) {
+}: ViewProps) {
   const { user, transactions, claimDailyReward, loading } = useApp();
   const [claiming, setClaiming] = useState(false);
 
