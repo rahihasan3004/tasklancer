@@ -51,16 +51,7 @@ export function AdsView() {
 
     if (!window.Adsgram) {
       setDevCountdown(3);
-      const interval = setInterval(() => {
-        setDevCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(interval);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const result = await watchAd();
       if (!result.success) {
         setError(result.error ?? "Failed to credit reward");

@@ -19,9 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="antialiased" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="beforeInteractive"
+        />
+        <Script
           src="https://sad.adsgram.ai/js/sad.min.js"
-          strategy="lazyOnload"
-          async
+          strategy="afterInteractive"
         />
         <div className="app-frame relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col border-x border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#09090B] text-slate-900 dark:text-zinc-100">
           {children}

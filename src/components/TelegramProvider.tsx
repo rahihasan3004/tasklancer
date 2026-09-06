@@ -42,29 +42,23 @@ export function TelegramProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    const isTelegram = typeof window !== "undefined" && !!window.Telegram?.WebApp;
+    const tg = typeof window !== "undefined" ? window.Telegram?.WebApp : null;
 
-    if (isTelegram) {
-      const WebApp = window.Telegram!.WebApp;
-      WebApp.ready();
-      WebApp.expand();
-
-      const u = WebApp.initDataUnsafe?.user;
-      const user: TelegramUser | null = u
-        ? {
-            id: u.id,
-            first_name: u.first_name,
-            username: u.username,
-            photo_url: u.photo_url,
-          }
-        : null;
-
+    if (tg && tg.initDataUnsafe?.user) {
+      const u = tg.initDataUnsafe.user;
       setState({
-        user,
-        initData: WebApp.initData ?? "",
+        user: {
+          id: u.id,
+          first_name: u.first_name || "Telegram User",
+          username: u.username || `user_${u.id}`,
+          photo_url: u.photo_url,
+        },
+        initData: tg.initData ?? "",
         isReady: true,
         isTelegram: true,
       });
+      tg.ready();
+      tg.expand();
     } else {
       setState({
         user: MOCK_USER,
